@@ -1,7 +1,7 @@
 // import product model
 const Product = require("../models/product");
 
-async function getProducts(category) {
+async function getProducts(category, page = 1, itemsPerPage = 6) {
   // create an empty container for filter
   let filter = {};
   if (category) {
@@ -9,7 +9,11 @@ async function getProducts(category) {
   }
 
   // load the product data from Mongodb
-  const products = await Product.find(filter).sort({ _id: -1 });
+  const products = await Product.find(filter)
+    .limit(itemsPerPage) // limit the number items
+    //.skip(page * itemsPerPage - itemsPerPage)
+    .skip((page - 1) * itemsPerPage)
+    .sort({ _id: -1 });
   return products;
 }
 
