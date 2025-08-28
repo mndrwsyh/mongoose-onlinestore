@@ -15,6 +15,7 @@ const productSchema = new Schema({
     type: String,
     required: true,
   },
+  image: String,
 });
 
 // create a Modal from the schema

@@ -38,6 +38,11 @@ const productRouter = require("./routes/product");
 app.use("/products", productRouter);
 app.use("/orders", require("./routes/order"));
 app.use("/payment", require("./routes/payment"));
+app.use("/image", require("./routes/image"));
+app.use("/categories", require("./routes/category"));
+
+// seta folder as a static path
+app.use("/uploads", express.static("uploads"));
 
 // start the express
 app.listen(5123, () => {
