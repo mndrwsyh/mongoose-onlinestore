@@ -10,6 +10,7 @@ async function getProducts(category, page = 1, itemsPerPage = 6) {
 
   // load the product data from Mongodb
   const products = await Product.find(filter)
+    .populate("category")
     .limit(itemsPerPage) // limit the number items
     //.skip(page * itemsPerPage - itemsPerPage)
     .skip((page - 1) * itemsPerPage)
