@@ -3,9 +3,13 @@ const jwt = require("jsonwebtoken");
 
 const User = require("../models/user");
 
+const getUserByEmail = async (email) => {
+  return await User.findOne({ email: email });
+};
+
 const login = async (email, password) => {
   // 1. check if the email provided is in the system
-  const user = await User.findOne({ email: email });
+  const user = await getUserByEmail(email);
   // if not exist show error
   if (!user) {
     throw new Error("Invalid email or password.");
@@ -83,4 +87,5 @@ const signup = async (name, email, password) => {
 module.exports = {
   login,
   signup,
+  getUserByEmail,
 };

@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const { isAdmin } = require("../middleware/auth");
 
 const {
   getProducts,
@@ -36,7 +37,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", isAdmin, async (req, res) => {
   try {
     const name = req.body.name;
     const description = req.body.description;
@@ -63,7 +64,7 @@ router.post("/", async (req, res) => {
 });
 
 // PUT /products/(insertidhere) - update
-router.put("/:id", async (req, res) => {
+router.put("/:id", isAdmin, async (req, res) => {
   try {
     const id = req.params.id;
     const name = req.body.name;
@@ -91,7 +92,7 @@ router.put("/:id", async (req, res) => {
 });
 
 // DELETE /products/(insertidhere) - delete
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", isAdmin, async (req, res) => {
   try {
     const id = req.params.id;
 

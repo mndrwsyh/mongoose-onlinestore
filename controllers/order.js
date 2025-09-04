@@ -3,9 +3,16 @@ const axios = require("axios");
 const Order = require("../models/order");
 const { collection } = require("../models/product");
 
-const getOrders = async () => {
-  const orders = await Order.find().sort({ _id: -1 });
-  return orders;
+const getOrders = async (user) => {
+  // if role is user, return only users order
+  // if role is admin, return everything
+  if (user.role === "admin") {
+    return await Order.find().sort({ _id: -1 });
+  } else {
+    return await Order.find({
+      customerEmail: user.email,
+    }).sort({ _id: -1 });
+  }
 };
 const getOrder = async (id) => {
   const order = await Order.findById(id);
